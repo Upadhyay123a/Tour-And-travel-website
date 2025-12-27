@@ -100,7 +100,7 @@ This project helped me gain hands-on experience with:
 
 ## 🤝 About
 
-This project was developed as part of my Full Stack Web Developer internship at DIGINIQUE TECHLABS (June 2024 - August 2024), where I learned to build production-quality web applications.
+This project was developed as part of my Full Stack Web Developer internship at DIGINIQUE TECHLABS (June 2024 - November 2024), where I learned to build production-quality web applications.
 
 **Developer:** Upadhyay  
 **GitHub:** [@Upadhyay123a](https://github.com/Upadhyay123a)
