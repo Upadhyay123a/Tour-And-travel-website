@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const tourSchema = new mongoose.Schema(
   {
@@ -35,6 +35,10 @@ const tourSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    bookings: {
+      type: Number,
+      default: 0,
+    },
 
     reviews: [
       {
@@ -51,4 +55,4 @@ const tourSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Tour", tourSchema);
+module.exports = mongoose.model("Tour", tourSchema);
