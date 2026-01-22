@@ -1,0 +1,358 @@
+.tour-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tour-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.tour-card__image-container {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.tour-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.tour-card:hover .tour-card__image {
+  transform: scale(1.1);
+}
+
+.tour-card__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    rgba(0, 0, 0, 0.1) 50%, 
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1rem;
+}
+
+.tour-card__price {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.tour-card__featured {
+  background: #ff6b6b;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  animation: pulse 2s infinite;
+}
+
+.tour-card__content {
+  padding: 1.5rem;
+}
+
+.tour-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.tour-card__title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+  line-height: 1.3;
+  flex: 1;
+}
+
+.tour-card__rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 1rem;
+}
+
+.tour-card__stars {
+  color: #ffc107;
+  font-size: 1rem;
+}
+
+.tour-card__rating-text {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.tour-card__location {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: #666;
+}
+
+.tour-card__city {
+  font-weight: 500;
+}
+
+.tour-card__distance {
+  background: #f8f9fa;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+}
+
+.tour-card__description {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.tour-card__details {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tour-card__detail {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.tour-card__detail-icon {
+  font-size: 1rem;
+}
+
+.tour-card__favorite {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+}
+
+.tour-card__favorite:hover {
+  transform: scale(1.1);
+  background: white;
+}
+
+.tour-card__favorite--active {
+  background: rgba(220, 53, 69, 0.9);
+  color: white;
+}
+
+.tour-card__booking {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tour-card__quantity {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tour-card__quantity label {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.tour-card__quantity-select {
+  padding: 0.5rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.tour-card__quantity-select:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 15px rgba(102, 126, 234, 0.1);
+}
+
+.tour-card__actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.tour-card__btn {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 25px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tour-card__btn--primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  flex: 1;
+}
+
+.tour-card__btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+.tour-card__btn--secondary {
+  background: #f8f9fa;
+  color: #e74c3c;
+  border: 2px solid #e74c3c;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 1.2rem;
+}
+
+.tour-card__btn--secondary:hover {
+  background: #e74c3c;
+  color: white;
+  transform: scale(1.1);
+}
+
+.tour-card__btn--cart {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 25px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+.tour-card__btn--cart:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(40, 167, 69, 0.4);
+}
+
+/* Animations */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .tour-card {
+    margin-bottom: 2rem;
+  }
+
+  .tour-card__image-container {
+    height: 200px;
+  }
+
+  .tour-card__content {
+    padding: 1rem;
+  }
+
+  .tour-card__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .tour-card__rating {
+    margin-left: 0;
+  }
+
+  .tour-card__title {
+    font-size: 1.1rem;
+  }
+
+  .tour-card__location {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .tour-card__details {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tour-card__actions {
+    flex-direction: column;
+  }
+
+  .tour-card__btn--primary {
+    width: 100%;
+  }
+
+  .tour-card__btn--secondary {
+    width: 100%;
+    height: 45px;
+    border-radius: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tour-card__image-container {
+    height: 180px;
+  }
+
+  .tour-card__content {
+    padding: 0.8rem;
+  }
+
+  .tour-card__title {
+    font-size: 1rem;
+  }
+
+  .tour-card__description {
+    font-size: 0.9rem;
+  }
+}

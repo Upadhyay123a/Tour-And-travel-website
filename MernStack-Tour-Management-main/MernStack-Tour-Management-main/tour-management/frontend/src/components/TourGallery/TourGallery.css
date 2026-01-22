@@ -1,0 +1,140 @@
+.tour-gallery {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tour-gallery__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.tour-gallery__title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tour-gallery__subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  opacity: 0.8;
+}
+
+.tour-gallery__loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 1rem;
+}
+
+.tour-gallery__spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.tour-gallery__loading p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.tour-gallery__empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #666;
+}
+
+.tour-gallery__empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.tour-gallery__empty h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.tour-gallery__empty p {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.tour-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Animations */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .tour-gallery {
+    padding: 2rem 1rem;
+  }
+
+  .tour-gallery__grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .tour-gallery__header {
+    margin-bottom: 2rem;
+  }
+
+  .tour-gallery__title {
+    font-size: 2rem;
+  }
+
+  .tour-gallery__subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tour-gallery {
+    padding: 1rem 0.5rem;
+  }
+
+  .tour-gallery__grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .tour-gallery__title {
+    font-size: 1.5rem;
+  }
+
+  .tour-gallery__subtitle {
+    font-size: 0.9rem;
+  }
+}
