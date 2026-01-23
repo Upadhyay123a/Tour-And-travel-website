@@ -25,6 +25,7 @@ app.use('/api/v1/reviews', require('./routes/reviewRoutes'));
 app.use('/api/v1/bookings', require('./routes/bookingRoutes'));
 app.use('/api/v1/notifications', require('./routes/notificationRoutes'));
 app.use('/api/v1/analytics', require('./routes/analyticsRoutes'));
+app.use('/api/v1/payments', require('./routes/paymentRoutes'));
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
