@@ -17,7 +17,16 @@
     "reactstrap": "^9.1.5",
     "remixicon": "^2.5.0",
     "slick-carousel": "^1.8.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "@stripe/react-stripe-js": "^2.4.0",
+    "@stripe/stripe-js": "^2.2.2",
+    "socket.io-client": "^4.7.4",
+    "react-leaflet": "^4.2.1",
+    "leaflet": "^1.9.4",
+    "react-google-login": "^5.2.2",
+    "react-facebook-login": "^4.1.1",
+    "i18next": "^23.7.6",
+    "react-i18next": "^13.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
