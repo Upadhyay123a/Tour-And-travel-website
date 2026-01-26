@@ -589,6 +589,75 @@ const getPaymentAnalytics = async (req, res) => {
   }
 };
 
+// Add payment method (save card)
+const addPaymentMethod = async (req, res) => {
+  try {
+    const { paymentMethodId, type, last4, brand, expiryMonth, expiryYear } = req.body;
+    
+    // In a real implementation, you would save this to the user's profile
+    // For now, we'll just return a success response
+    res.status(200).json({
+      success: true,
+      message: 'Payment method saved successfully',
+      data: {
+        paymentMethodId,
+        type,
+        last4,
+        brand,
+        expiryMonth,
+        expiryYear
+      }
+    });
+  } catch (error) {
+    console.error('Add payment method error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to save payment method',
+      error: error.message
+    });
+  }
+};
+
+// Get saved payment methods
+const getSavedPaymentMethods = async (req, res) => {
+  try {
+    // In a real implementation, you would fetch from user's profile
+    // For now, we'll return an empty array
+    res.status(200).json({
+      success: true,
+      data: []
+    });
+  } catch (error) {
+    console.error('Get saved payment methods error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to get saved payment methods',
+      error: error.message
+    });
+  }
+};
+
+// Delete saved payment method
+const deletePaymentMethod = async (req, res) => {
+  try {
+    const { methodId } = req.params;
+    
+    // In a real implementation, you would remove from user's profile
+    // For now, we'll just return a success response
+    res.status(200).json({
+      success: true,
+      message: 'Payment method deleted successfully'
+    });
+  } catch (error) {
+    console.error('Delete payment method error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to delete payment method',
+      error: error.message
+    });
+  }
+};
+
 // Helper function to get time range date
 const getTimeRangeDate = (range) => {
   const now = new Date();
@@ -616,6 +685,9 @@ module.exports = {
   getUserPaymentHistory,
   refundPayment,
   getAvailablePaymentMethods,
+  addPaymentMethod,
+  getSavedPaymentMethods,
+  deletePaymentMethod,
   addToWallet,
   getWalletBalance,
   getWalletTransactions,

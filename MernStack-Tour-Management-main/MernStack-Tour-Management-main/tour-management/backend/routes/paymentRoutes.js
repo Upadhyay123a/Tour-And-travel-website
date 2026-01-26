@@ -5,7 +5,7 @@ const authMiddleware = require('../middleware/auth');
 const router = express.Router();
 
 // All payment routes require authentication
-router.use(authMiddleware);
+router.use(authMiddleware.authenticate);
 
 // Create payment intent
 router.post('/create-intent', paymentController.createPaymentIntent);
