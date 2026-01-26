@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
+const { generalRateLimit, authRateLimit, bookingRateLimit, paymentRateLimit, reviewRateLimit } = require('./middleware/rateLimit');
 require('dotenv').config();
 const { connectDB } = require('./config/database');
 
@@ -22,6 +23,9 @@ connectDB();
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Apply general rate limiting to all routes
+app.use(generalRateLimit);
 
 // Socket.io connection handling
 io.on('connection', (socket) => {
@@ -70,14 +74,14 @@ app.get('/', (req, res) => {
   res.send('Tour Management API is running...');
 });
 
-// API Routes
+// API Routes with specific rate limiting
+app.use('/api/v1/users', authRateLimit, require('./routes/userRoutes'));
 app.use('/api/v1/tours', require('./routes/tourRoutes'));
-app.use('/api/v1/users', require('./routes/userRoutes'));
-app.use('/api/v1/reviews', require('./routes/reviewRoutes'));
-app.use('/api/v1/bookings', require('./routes/bookingRoutes'));
+app.use('/api/v1/reviews', reviewRateLimit, require('./routes/reviewRoutes'));
+app.use('/api/v1/bookings', bookingRateLimit, require('./routes/bookingRoutes'));
 app.use('/api/v1/notifications', require('./routes/notificationRoutes'));
 app.use('/api/v1/analytics', require('./routes/analyticsRoutes'));
-app.use('/api/v1/payments', require('./routes/paymentRoutes'));
+app.use('/api/v1/payments', paymentRateLimit, require('./routes/paymentRoutes'));
 
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

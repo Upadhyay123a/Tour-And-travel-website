@@ -14,6 +14,10 @@ import EnhancedDashboard from './components/Dashboard/EnhancedDashboard';
 import Cart from './components/Cart/Cart';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
+import Payment from './components/Payment/Payment';
+import Wallet from './components/Wallet/Wallet';
+import OrderTracking from './components/OrderTracking/OrderTracking';
+import SupportChat from './components/SupportChat/SupportChat';
 import './styles/global.css';
 
 function App() {
@@ -22,7 +26,8 @@ function App() {
   const [filters, setFilters] = useState({
     searchQuery: '',
     selectedCity: 'all',
-    selectedPriceRange: 'all'
+    selectedPriceRange: 'all',
+    selectedCategory: 'all'
   });
 
   useEffect(() => {
@@ -79,6 +84,7 @@ function App() {
                 searchQuery={filters.searchQuery}
                 selectedCity={filters.selectedCity}
                 selectedPriceRange={filters.selectedPriceRange}
+                selectedCategory={filters.selectedCategory}
               />
             </>
           } />
@@ -89,6 +95,7 @@ function App() {
                 searchQuery={filters.searchQuery}
                 selectedCity={filters.selectedCity}
                 selectedPriceRange={filters.selectedPriceRange}
+                selectedCategory={filters.selectedCategory}
               />
             </>
           } />
@@ -97,9 +104,13 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/dashboard" element={user ? <EnhancedDashboard user={user} /> : <Navigate to="/login" />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/payment" element={user ? <Payment /> : <Navigate to="/login" />} />
+          <Route path="/wallet" element={user ? <Wallet /> : <Navigate to="/login" />} />
+          <Route path="/tracking/:bookingId" element={user ? <OrderTracking /> : <Navigate to="/login" />} />
         </Routes>
         
         <Footer />
+        <SupportChat />
       </div>
     </Router>
   );
