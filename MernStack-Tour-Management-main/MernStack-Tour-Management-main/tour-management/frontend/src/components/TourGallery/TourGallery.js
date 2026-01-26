@@ -3,6 +3,19 @@ import TourCard from '../TourCard/TourCard';
 import { tourService } from '../../services/tourService';
 import './TourGallery.css';
 
+// Helper function to derive category from tour title
+const getTourCategory = (tour) => {
+  const title = tour.title.toLowerCase();
+  if (title.includes('beach') || title.includes('island') || title.includes('maldives')) return 'beach';
+  if (title.includes('mountain') || title.includes('alps') || title.includes('hiking')) return 'mountain';
+  if (title.includes('city') || title.includes('new york') || title.includes('tokyo')) return 'city';
+  if (title.includes('adventure') || title.includes('safari') || title.includes('expedition')) return 'adventure';
+  if (title.includes('temple') || title.includes('cultural') || title.includes('heritage')) return 'cultural';
+  if (title.includes('wildlife') || title.includes('safari') || title.includes('rainforest')) return 'wildlife';
+  if (title.includes('luxury') || title.includes('paradise') || title.includes('experience')) return 'luxury';
+  return 'city'; // default
+};
+
 const TourGallery = ({ searchQuery, selectedCity, selectedPriceRange, selectedCategory }) => {
   const [tours, setTours] = useState([]);
   const [filteredTours, setFilteredTours] = useState([]);
@@ -12,7 +25,7 @@ const TourGallery = ({ searchQuery, selectedCity, selectedPriceRange, selectedCa
   const [sortBy, setSortBy] = useState('featured');
   const [viewMode, setViewMode] = useState('grid');
   const [currentPage, setCurrentPage] = useState(1);
-  const [toursPerPage] = 12;
+  const [toursPerPage] = useState(12);
 
   useEffect(() => {
     fetchTours();
@@ -50,8 +63,7 @@ const TourGallery = ({ searchQuery, selectedCity, selectedPriceRange, selectedCa
       filtered = filtered.filter(tour =>
         tour.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         tour.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        tour.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        tour.category?.toLowerCase().includes(searchQuery.toLowerCase())
+        tour.desc?.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
@@ -68,7 +80,7 @@ const TourGallery = ({ searchQuery, selectedCity, selectedPriceRange, selectedCa
 
     // Filter by category
     if (selectedCategory && selectedCategory !== 'all') {
-      filtered = filtered.filter(tour => tour.category === selectedCategory);
+      filtered = filtered.filter(tour => getTourCategory(tour) === selectedCategory);
     }
 
     // Sort tours

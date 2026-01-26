@@ -12,7 +12,7 @@ const TourCard = ({ tour, viewMode = 'grid' }) => {
   const tourImages = [
     `https://source.unsplash.com/featured/?${encodeURIComponent(tour.title)}&w=400&h=300`,
     `https://source.unsplash.com/featured/?${encodeURIComponent(tour.city)}&w=400&h=300`,
-    `https://source.unsplash.com/featured/?${encodeURIComponent(tour.category)}&w=400&h=300`
+    `https://source.unsplash.com/featured/?${encodeURIComponent(tour.title)}&w=400&h=300`
   ];
 
   const handleAddToCart = () => {
@@ -87,6 +87,23 @@ const TourCard = ({ tour, viewMode = 'grid' }) => {
     return icons[category] || '🌍';
   };
 
+  // Get category from tour data or derive from title
+  const getTourCategory = (tour) => {
+    if (tour.category) return tour.category;
+    
+    // Derive category from title
+    const title = tour.title.toLowerCase();
+    if (title.includes('beach') || title.includes('island') || title.includes('maldives')) return 'beach';
+    if (title.includes('mountain') || title.includes('alps') || title.includes('hiking')) return 'mountain';
+    if (title.includes('city') || title.includes('new york') || title.includes('tokyo')) return 'city';
+    if (title.includes('adventure') || title.includes('safari') || title.includes('expedition')) return 'adventure';
+    if (title.includes('temple') || title.includes('cultural') || title.includes('heritage')) return 'cultural';
+    if (title.includes('wildlife') || title.includes('safari') || title.includes('rainforest')) return 'wildlife';
+    if (title.includes('luxury') || title.includes('paradise') || title.includes('experience')) return 'luxury';
+    
+    return 'city'; // default
+  };
+
   const getDifficultyColor = (difficulty) => {
     const colors = {
       easy: '#28a745',
@@ -94,6 +111,17 @@ const TourCard = ({ tour, viewMode = 'grid' }) => {
       hard: '#dc3545'
     };
     return colors[difficulty] || '#6c757d';
+  };
+
+  // Get difficulty from tour data or derive from price
+  const getTourDifficulty = (tour) => {
+    if (tour.difficulty) return tour.difficulty;
+    
+    // Derive difficulty from price
+    const price = tour.price || 0;
+    if (price < 200) return 'easy';
+    if (price < 500) return 'medium';
+    return 'hard';
   };
 
   const renderStars = (rating) => {
@@ -141,7 +169,7 @@ const TourCard = ({ tour, viewMode = 'grid' }) => {
             </span>
           )}
           <div className="tour-card__category-badge">
-            {getCategoryIcon(tour.category)} {tour.category}
+            {getCategoryIcon(getTourCategory(tour))} {getTourCategory(tour)}
           </div>
         </div>
         <button 
@@ -185,9 +213,9 @@ const TourCard = ({ tour, viewMode = 'grid' }) => {
         </div>
         
         <p className="tour-card__description">
-          {tour.description?.length > (viewMode === 'list' ? 200 : 100) 
-            ? `${tour.description.substring(0, viewMode === 'list' ? 200 : 100)}...` 
-            : tour.description || 'Experience an amazing adventure in this beautiful destination.'}
+          {tour.desc?.length > (viewMode === 'list' ? 200 : 100) 
+            ? `${tour.desc.substring(0, viewMode === 'list' ? 200 : 100)}...` 
+            : tour.desc || 'Experience an amazing adventure in this beautiful destination.'}
         </p>
         
         <div className="tour-card__details">
@@ -197,7 +225,7 @@ const TourCard = ({ tour, viewMode = 'grid' }) => {
           </div>
           <div className="tour-card__detail">
             <span className="tour-card__detail-icon">🕒</span>
-            <span>{tour.duration || '5 days'}</span>
+            <span>{tour.duration || `${Math.ceil((tour.distance || 100) / 100)} days`}</span>
           </div>
           <div className="tour-card__detail">
             <span className="tour-card__detail-icon">🎟️</span>
@@ -205,8 +233,8 @@ const TourCard = ({ tour, viewMode = 'grid' }) => {
           </div>
           <div className="tour-card__detail">
             <span className="tour-card__detail-icon">📊</span>
-            <span style={{ color: getDifficultyColor(tour.difficulty) }}>
-              {tour.difficulty || 'Easy'}
+            <span style={{ color: getDifficultyColor(getTourDifficulty(tour)) }}>
+              {getTourDifficulty(tour)}
             </span>
           </div>
         </div>
