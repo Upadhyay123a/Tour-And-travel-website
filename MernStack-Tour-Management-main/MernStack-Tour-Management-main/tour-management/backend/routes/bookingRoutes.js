@@ -2,8 +2,13 @@ const express = require('express');
 const Booking = require('../models/Booking');
 const Tour = require('../models/Tour');
 const User = require('../models/User');
+const NotificationService = require('../services/notificationService');
+const { bookingValidation, validateObjectId, xssProtection } = require('../middleware/validation');
 
 const router = express.Router();
+
+// Apply XSS protection to all routes
+router.use(xssProtection);
 
 // Get all bookings
 router.get('/', async (req, res) => {
@@ -27,7 +32,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get bookings by user
-router.get('/user/:userId', async (req, res) => {
+router.get('/user/:userId', validateObjectId('userId'), async (req, res) => {
   try {
     const bookings = await Booking.find({ user: req.params.userId })
       .populate('tour')
@@ -47,17 +52,9 @@ router.get('/user/:userId', async (req, res) => {
 });
 
 // Create new booking
-router.post('/', async (req, res) => {
+router.post('/', bookingValidation, async (req, res) => {
   try {
     const { user, tour, tourDate, numberOfPeople, contactInfo, specialRequests } = req.body;
-    
-    // Validate required fields
-    if (!user || !tour || !tourDate || !numberOfPeople || !contactInfo) {
-      return res.status(400).json({
-        success: false,
-        message: 'Missing required fields: user, tour, tourDate, numberOfPeople, contactInfo'
-      });
-    }
     
     // Get tour details
     const tourDetails = await Tour.findById(tour);
@@ -88,6 +85,17 @@ router.post('/', async (req, res) => {
       $inc: { bookings: 1 }
     });
     
+    // Send real-time notification
+    const io = req.app.get('io');
+    const notificationService = new NotificationService(io);
+    await notificationService.sendBookingConfirmation(user, savedBooking);
+    
+    // Send booking update via Socket.io
+    io.to(user).emit('bookingUpdate', {
+      type: 'created',
+      booking: savedBooking
+    });
+    
     res.status(201).json({
       success: true,
       message: 'Booking created successfully',
@@ -97,14 +105,13 @@ router.post('/', async (req, res) => {
     console.error('Create booking error:', error);
     res.status(500).json({
       success: false,
-      message: 'Failed to create booking',
-      error: error.message
+      message: 'Failed to create booking'
     });
   }
 });
 
 // Update booking status
-router.put('/:id/status', async (req, res) => {
+router.put('/:id/status', validateObjectId('id'), async (req, res) => {
   try {
     const { status } = req.body;
     
@@ -128,7 +135,7 @@ router.put('/:id/status', async (req, res) => {
 });
 
 // Cancel booking
-router.put('/:id/cancel', async (req, res) => {
+router.put('/:id/cancel', validateObjectId('id'), async (req, res) => {
   try {
     const cancelledBooking = await Booking.findByIdAndUpdate(
       req.params.id,

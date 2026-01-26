@@ -2,11 +2,15 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const { userRegistrationValidation, userLoginValidation, xssProtection } = require('../middleware/validation');
 
 const router = express.Router();
 
+// Apply XSS protection to all routes
+router.use(xssProtection);
+
 // Register user
-router.post('/register', async (req, res) => {
+router.post('/register', userRegistrationValidation, async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
@@ -51,6 +55,7 @@ router.post('/register', async (req, res) => {
       }
     });
   } catch (error) {
+    console.error('Registration error:', error);
     res.status(500).json({
       success: false,
       message: 'Registration failed'
@@ -59,23 +64,23 @@ router.post('/register', async (req, res) => {
 });
 
 // Login user
-router.post('/login', async (req, res) => {
+router.post('/login', userLoginValidation, async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Find user
+    // Find user by email
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).json({
+      return res.status(401).json({
         success: false,
-        message: 'User not found'
+        message: 'Invalid credentials'
       });
     }
 
     // Check password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(400).json({
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({
         success: false,
         message: 'Invalid credentials'
       });
@@ -100,6 +105,7 @@ router.post('/login', async (req, res) => {
       }
     });
   } catch (error) {
+    console.error('Login error:', error);
     res.status(500).json({
       success: false,
       message: 'Login failed'
