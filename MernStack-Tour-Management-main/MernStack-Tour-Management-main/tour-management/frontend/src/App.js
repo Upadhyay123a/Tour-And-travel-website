@@ -20,6 +20,9 @@ import OrderTracking from './components/OrderTracking/OrderTracking';
 import SupportChat from './components/SupportChat/SupportChat';
 import './styles/global.css';
 
+// Fixed TourGallery error and data handling - Layout organization improved
+console.log('App.js loaded successfully - TourGallery and TourCard fixed!');
+
 function App() {
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);

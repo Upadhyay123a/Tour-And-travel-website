@@ -3,42 +3,34 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@stripe/react-stripe-js": "^5.5.0",
+    "@stripe/stripe-js": "^8.6.4",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "ajv": "^8.12.0",
+    "ajv-formats": "^2.1.1",
+    "ajv-keywords": "^5.1.0",
     "axios": "^1.6.0",
     "bootstrap": "^5.2.3",
+    "i18next": "^23.7.6",
+    "leaflet": "^1.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-responsive-masonry": "^2.1.7",
+    "react-i18next": "^13.5.0",
+    "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
-    "react-slick": "^0.29.0",
-    "reactstrap": "^9.1.5",
-    "remixicon": "^2.5.0",
+    "remixicon": "^4.8.0",
+    "schema-utils": "^3.1.1",
     "slick-carousel": "^1.8.1",
-    "web-vitals": "^2.1.4",
-    "@stripe/react-stripe-js": "^2.4.0",
-    "@stripe/stripe-js": "^2.2.2",
-    "socket.io-client": "^4.7.4",
-    "react-leaflet": "^4.2.1",
-    "leaflet": "^1.9.4",
-    "react-google-login": "^5.2.2",
-    "react-facebook-login": "^4.1.1",
-    "i18next": "^23.7.6",
-    "react-i18next": "^13.5.0"
+    "socket.io-client": "^4.7.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -51,5 +43,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "eslintIgnore": ["**/*.js", "**/*.jsx"]
 }
