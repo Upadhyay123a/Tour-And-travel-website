@@ -11,7 +11,7 @@
     "ajv": "^8.18.0",
     "ajv-formats": "^2.1.1",
     "ajv-keywords": "^5.1.0",
-    "axios": "^1.13.5",
+    "axios": "^1.15.0",
     "bootstrap": "^5.2.3",
     "i18next": "^23.7.6",
     "leaflet": "^1.9.4",
